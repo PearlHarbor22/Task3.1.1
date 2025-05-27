@@ -2,19 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Форма</title>
+  <title th:text="${user.id == null} ? 'Создание пользователя' : 'Редактирование пользователя'"></title>
 </head>
 <body>
-<h2 th:text="${user.id} != null ? 'Редактировать' : 'Добавить'"></h2>
+<h2 th:text="${user.id == null} ? 'Создание пользователя' : 'Редактирование пользователя'"></h2>
 
-<form th:action="@{/users/save}" method="post" th:object="${user}">
+<form th:if="${user.id == null}" th:action="@{/add}" th:object="${user}" method="post">
   <input type="hidden" th:field="*{id}" />
-  Имя: <input type="text" th:field="*{name}" required /><br><br>
-  Email: <input type="email" th:field="*{email}" required /><br><br>
+  <label>Имя:</label><br/>
+  <input type="text" th:field="*{name}" /><br/><br/>
+  <label>Email:</label><br/>
+  <input type="email" th:field="*{email}" /><br/><br/>
   <input type="submit" value="Сохранить" />
 </form>
 
-<br>
-<a th:href="@{/users}">Назад к списку</a>
+<form th:if="${user.id != null}" th:action="@{/edit}" th:object="${user}" method="post">
+  <input type="hidden" th:field="*{id}" />
+  <label>Имя:</label><br/>
+  <input type="text" th:field="*{name}" /><br/><br/>
+  <label>Email:</label><br/>
+  <input type="email" th:field="*{email}" /><br/><br/>
+  <input type="submit" value="Сохранить" />
+</form>
+
+<br/>
+<a th:href="@{/}">Назад к списку</a>
 </body>
 </html>

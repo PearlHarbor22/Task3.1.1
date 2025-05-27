@@ -56,7 +56,8 @@ public class UserController {
         return "user-form";
     }
     @GetMapping("/new")
-    public String showAddForm() {
+    public String showAddForm(Model model) {
+        model.addAttribute("user", new User());
         return "user-form";
     }
 }
